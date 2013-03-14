@@ -42,7 +42,11 @@ namespace PracticaCalculadora
             this.btnPercentage = new System.Windows.Forms.Button();
             this.btnEquals = new System.Windows.Forms.Button();
             this.btnMemRes = new System.Windows.Forms.Button();
+            this.btnMul = new System.Windows.Forms.Button();
+            this.btnDiv = new System.Windows.Forms.Button();
             this.btnMemLess = new System.Windows.Forms.Button();
+            this.btnLess = new System.Windows.Forms.Button();
+            this.btnMore = new System.Windows.Forms.Button();
             this.btnMemMore = new System.Windows.Forms.Button();
             this.btnC = new System.Windows.Forms.Button();
             this.btnCE = new System.Windows.Forms.Button();
@@ -59,10 +63,6 @@ namespace PracticaCalculadora
             this.btnSeven = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblMemory = new System.Windows.Forms.Label();
-            this.btnMul = new System.Windows.Forms.Button();
-            this.btnDiv = new System.Windows.Forms.Button();
-            this.btnLess = new System.Windows.Forms.Button();
-            this.btnMore = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -76,6 +76,7 @@ namespace PracticaCalculadora
             this.tbCalc.Location = new System.Drawing.Point(12, -3);
             this.tbCalc.MaxLength = 10;
             this.tbCalc.Name = "tbCalc";
+            this.tbCalc.ReadOnly = true;
             this.tbCalc.Size = new System.Drawing.Size(355, 40);
             this.tbCalc.TabIndex = 0;
             this.tbCalc.Text = "0";
@@ -168,6 +169,34 @@ namespace PracticaCalculadora
             this.btnMemRes.UseVisualStyleBackColor = false;
             this.btnMemRes.Click += new System.EventHandler(this.btnsMemory_Click);
             // 
+            // btnMul
+            // 
+            this.btnMul.BackColor = System.Drawing.SystemColors.Control;
+            this.btnMul.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMul.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.btnMul.Location = new System.Drawing.Point(269, 123);
+            this.btnMul.Name = "btnMul";
+            this.btnMul.Size = new System.Drawing.Size(40, 40);
+            this.btnMul.TabIndex = 18;
+            this.btnMul.Tag = mulOperation1;
+            this.btnMul.Text = "*";
+            this.btnMul.UseVisualStyleBackColor = false;
+            this.btnMul.Click += new System.EventHandler(this.btnOperations_Click);
+            // 
+            // btnDiv
+            // 
+            this.btnDiv.BackColor = System.Drawing.SystemColors.Control;
+            this.btnDiv.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDiv.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.btnDiv.Location = new System.Drawing.Point(209, 123);
+            this.btnDiv.Name = "btnDiv";
+            this.btnDiv.Size = new System.Drawing.Size(40, 40);
+            this.btnDiv.TabIndex = 17;
+            this.btnDiv.Tag = divOperation1;
+            this.btnDiv.Text = "/";
+            this.btnDiv.UseVisualStyleBackColor = false;
+            this.btnDiv.Click += new System.EventHandler(this.btnOperations_Click);
+            // 
             // btnMemLess
             // 
             this.btnMemLess.BackColor = System.Drawing.SystemColors.Control;
@@ -181,6 +210,34 @@ namespace PracticaCalculadora
             this.btnMemLess.Text = "M-";
             this.btnMemLess.UseVisualStyleBackColor = false;
             this.btnMemLess.Click += new System.EventHandler(this.btnsMemory_Click);
+            // 
+            // btnLess
+            // 
+            this.btnLess.BackColor = System.Drawing.SystemColors.Control;
+            this.btnLess.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLess.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.btnLess.Location = new System.Drawing.Point(269, 68);
+            this.btnLess.Name = "btnLess";
+            this.btnLess.Size = new System.Drawing.Size(40, 40);
+            this.btnLess.TabIndex = 15;
+            this.btnLess.Tag = restOperation1;
+            this.btnLess.Text = "-";
+            this.btnLess.UseVisualStyleBackColor = false;
+            this.btnLess.Click += new System.EventHandler(this.btnOperations_Click);
+            // 
+            // btnMore
+            // 
+            this.btnMore.BackColor = System.Drawing.SystemColors.Control;
+            this.btnMore.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMore.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.btnMore.Location = new System.Drawing.Point(209, 68);
+            this.btnMore.Name = "btnMore";
+            this.btnMore.Size = new System.Drawing.Size(40, 40);
+            this.btnMore.TabIndex = 14;
+            this.btnMore.Tag = sumOperation1;
+            this.btnMore.Text = "+";
+            this.btnMore.UseVisualStyleBackColor = false;
+            this.btnMore.Click += new System.EventHandler(this.btnOperations_Click);
             // 
             // btnMemMore
             // 
@@ -397,62 +454,6 @@ namespace PracticaCalculadora
             this.lblMemory.Size = new System.Drawing.Size(16, 13);
             this.lblMemory.TabIndex = 3;
             this.lblMemory.Text = "M";
-            // 
-            // btnMul
-            // 
-            this.btnMul.BackColor = System.Drawing.SystemColors.Control;
-            this.btnMul.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMul.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.btnMul.Location = new System.Drawing.Point(269, 123);
-            this.btnMul.Name = "btnMul";
-            this.btnMul.Size = new System.Drawing.Size(40, 40);
-            this.btnMul.TabIndex = 18;
-            this.btnMul.Tag = mulOperation1;
-            this.btnMul.Text = "*";
-            this.btnMul.UseVisualStyleBackColor = false;
-            this.btnMul.Click += new System.EventHandler(this.btnOperations_Click);
-            // 
-            // btnDiv
-            // 
-            this.btnDiv.BackColor = System.Drawing.SystemColors.Control;
-            this.btnDiv.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDiv.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.btnDiv.Location = new System.Drawing.Point(209, 123);
-            this.btnDiv.Name = "btnDiv";
-            this.btnDiv.Size = new System.Drawing.Size(40, 40);
-            this.btnDiv.TabIndex = 17;
-            this.btnDiv.Tag = divOperation1;
-            this.btnDiv.Text = "/";
-            this.btnDiv.UseVisualStyleBackColor = false;
-            this.btnDiv.Click += new System.EventHandler(this.btnOperations_Click);
-            // 
-            // btnLess
-            // 
-            this.btnLess.BackColor = System.Drawing.SystemColors.Control;
-            this.btnLess.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLess.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.btnLess.Location = new System.Drawing.Point(269, 68);
-            this.btnLess.Name = "btnLess";
-            this.btnLess.Size = new System.Drawing.Size(40, 40);
-            this.btnLess.TabIndex = 15;
-            this.btnLess.Tag = restOperation1;
-            this.btnLess.Text = "-";
-            this.btnLess.UseVisualStyleBackColor = false;
-            this.btnLess.Click += new System.EventHandler(this.btnOperations_Click);
-            // 
-            // btnMore
-            // 
-            this.btnMore.BackColor = System.Drawing.SystemColors.Control;
-            this.btnMore.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMore.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.btnMore.Location = new System.Drawing.Point(209, 68);
-            this.btnMore.Name = "btnMore";
-            this.btnMore.Size = new System.Drawing.Size(40, 40);
-            this.btnMore.TabIndex = 14;
-            this.btnMore.Tag = sumOperation1;
-            this.btnMore.Text = "+";
-            this.btnMore.UseVisualStyleBackColor = false;
-            this.btnMore.Click += new System.EventHandler(this.btnOperations_Click);
             // 
             // CalculadoraMain
             // 

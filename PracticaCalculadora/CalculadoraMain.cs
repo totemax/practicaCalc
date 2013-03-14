@@ -13,7 +13,7 @@ namespace PracticaCalculadora
     public partial class CalculadoraMain : Form
     {
          /**
-         * Enumeration para las operaciones de uso de memoria
+         * Enumeration comprobar las operaciones en memoria que se van a realizar
          */
         public enum memOperattions
         {
@@ -23,12 +23,13 @@ namespace PracticaCalculadora
             SHOW_MEM = 3
         }
 
-     
-
-        private IDictionary<String, IOperation> operationsSet = new Dictionary<String, IOperation>();
+        //Variable que almacena la operación que se ha invocado para poder resolverla posteriormente
         public IOperation actualOperation = null;
+        //Variable que almacen el primer termino de la operacion
         public Decimal firstTerm = 0;
+        //Flag para comprobar si el valor mostrado en el display es antiguo para borrarlo cuando se escribe
         private bool isOldValue = true;
+        //Variable que almacena el contenido de la memoria de la calculadora
         private Decimal memory = 0;
 
         public CalculadoraMain()
@@ -42,6 +43,9 @@ namespace PracticaCalculadora
             this.ActiveControl = btnEquals;
         }
 
+        /**
+         * Evento que controla el pulsado de los botones de operaciones aritmeticas
+         * */
         private void btnOperations_Click(Object sender, EventArgs e)
         {
             try
@@ -52,13 +56,16 @@ namespace PracticaCalculadora
                     this.firstTerm = actualOperation.resolveOperation(this.firstTerm, actualTerm);
                 }
                 else firstTerm = Decimal.Parse(tbCalc.Text);
+                //Realizamos el cast del sender para poder acceder a sus atributos
                 Button btnOperation = (Button)sender;
+                //En el tag del button almacenamos la operacion que se va a realizar en cada boton
+                //de esta forma podemos usar la misma funcion para todas las operaciones
                 actualOperation = (IOperation)btnOperation.Tag;
                 parseToDisplay(this.firstTerm);
-                isOldValue = true;
             }
             catch (Exception)
             {
+                //Controlamos los posibles errores (errores de parseo, etc..)
                 this.tbCalc.Text = "Err";
                 this.firstTerm = 0;
                 this.isOldValue = true;
@@ -66,17 +73,25 @@ namespace PracticaCalculadora
             }
         }
 
+        /**
+         * Evento que controla los botones de números y los escribe en pantalla.
+         * */
         private void btnNum_Click(object sender, EventArgs e)
         {
             Button btnNum =  (Button) sender;
+            //Si el valor es antiguo borramos y escribimos encima
             if (isOldValue)
             {
                 tbCalc.Text = btnNum.Text;
                 isOldValue = false;
             }
+            //en caso contrario concatenamos
             else tbCalc.Text += btnNum.Text;
         }
 
+        /**
+         * Evento que controla el boton "=" para realizar las operaciones.
+         * */
         private void btnEquals_Click(object sender, EventArgs e)
         {
             try
@@ -85,20 +100,23 @@ namespace PracticaCalculadora
                 {
                     Decimal actualTerm = Decimal.Parse(tbCalc.Text);
                     this.firstTerm = actualOperation.resolveOperation(this.firstTerm, actualTerm);
+                    parseToDisplay(this.firstTerm);
                 }
-                parseToDisplay(this.firstTerm);
             }
+            //Controlamos los errores aritmeticos posibles al realizar las operaciones.
             catch (ArithmeticException)
             {
                 this.tbCalc.Text = "err";
             }
             finally
             {
-                this.isOldValue = true;
                 this.actualOperation = null;
             }
         }
 
+        /**
+         * Evento del boton que limpia la calculadora y la pantalla.
+         * */
         private void btnC_Click(object sender, EventArgs e)
         {
             this.actualOperation = null;
@@ -107,20 +125,26 @@ namespace PracticaCalculadora
             this.isOldValue = true;
         }
 
+        /**
+         * Evento del boton que limpia la pantalla.
+         * */
         private void btnCE_Click(object sender, EventArgs e)
         {
             tbCalc.Text = "0";
             this.isOldValue = true;
         }
 
+        /**
+         * Evento del boton "%". 
+         * */
         private void btnPercentage_Click(object sender, EventArgs e)
         {
             try
             {
-
                 if (actualOperation != null)
                 {
                     Decimal actualTerm = Decimal.Parse(tbCalc.Text);
+                    //Realizamos el procentage del primer y segundo operador.
                     this.firstTerm = Decimal.Divide(Decimal.Multiply(actualTerm, firstTerm), 100);
                     parseToDisplay(firstTerm);
                 }
@@ -131,25 +155,34 @@ namespace PracticaCalculadora
             }
             finally
             {
-                this.isOldValue = true;
                 this.actualOperation = null;
             }
         }
 
+        /**
+         * Funcion que realiza la salida por pantalla de los resultados.
+         * */
         private void parseToDisplay(decimal dec)
         {
             String tDec = Decimal.Truncate(dec).ToString();
+            //El numero total de digitos es 10, asique mostramos tantos decimales como 10-parte entera
             int numDigits = 10 - tDec.Length;
+            //realizamos un redondeo para que los digitos se ajusten a la pantalla
             tbCalc.Text = Decimal.Round(dec, numDigits, MidpointRounding.ToEven).ToString();
+            this.isOldValue = true;
         }
 
 
-
+        /*
+         * Evento que controla las operaciones de memoria.
+         * */
         private void btnsMemory_Click(object sender, EventArgs e)
         {
             try
             {
                 Button send = (Button)sender;
+                //Comprobamos cual de las operaciones del enumerador estamos invocando
+                //Dicha informacion la almacenamos previamente en el tag del boton
                 switch ((memOperattions)send.Tag)
                 {
                     case memOperattions.SHOW_MEM:
